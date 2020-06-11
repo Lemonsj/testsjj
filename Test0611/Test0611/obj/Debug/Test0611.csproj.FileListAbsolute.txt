@@ -1,0 +1,6 @@
+c:\users\14808\documents\visual studio 2013\Projects\Test0611\Test0611\bin\Debug\Test0611.exe.config
+c:\users\14808\documents\visual studio 2013\Projects\Test0611\Test0611\bin\Debug\Test0611.exe
+c:\users\14808\documents\visual studio 2013\Projects\Test0611\Test0611\bin\Debug\Test0611.pdb
+c:\users\14808\documents\visual studio 2013\Projects\Test0611\Test0611\obj\Debug\Test0611.csprojResolveAssemblyReference.cache
+c:\users\14808\documents\visual studio 2013\Projects\Test0611\Test0611\obj\Debug\Test0611.exe
+c:\users\14808\documents\visual studio 2013\Projects\Test0611\Test0611\obj\Debug\Test0611.pdb
