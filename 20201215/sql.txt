@@ -1,0 +1,145 @@
+use JWGL;
+create table Student(
+   Sno char(8) primary key,
+   Sname varchar(10) unique,
+   Sex char(2),
+   Age tinyint,
+   Phonenumber char(12),
+   Sdept varchar(20)
+);
+create table Course(
+   Cno char(10) primary key,
+   Cname varchar(20) not null,
+   Total_perior tinyint,
+   Week_perior tinyint,
+   Cpno char(4),
+   credit tinyint,
+   Pcon char(10)
+);
+create table SC(
+   Sno char(8),
+   Cno char(10),
+   Grade tinyint,
+   primary key(sno, cno),
+   foreign key(Sno) references Student(Sno),
+   foreign key(Cno) references Course(Cno)
+);
+insert into student(Sno,Sname,Sex,Age,Phonenumber,Sdept) values
+insert into course(Cno,Cname,Total_perior,Week_perior,Cpno,credit,Pcon) values
+insert into sc(Sno,Cno,Grade) values
+
+
+use Market;
+CREATE TABLE Customers (
+    CustomerID int IDENTITY(1,1) PRIMARY KEY,
+	CName varchar(8) NOT NULL,
+	Address varchar(50),
+	City varchar(10),
+	Tel varchar(20) UNIQUE,
+	Company varchar(50),
+	Birthday datetime,
+	Type tinyint DEFAULT 1
+);
+CREATE TABLE Goods (
+    GoodsID int CONSTRAINT C1 PRIMARY KEY,
+	GoodsName varchar(20) NOT NULL,
+	Price money,
+	Description varchar(200),
+	Storage int,
+	Provider varchar(50),
+	Status tinyint DEFAULT(0)
+);
+CREATE TABLE Orders (
+    OrderID int IDENTITY(1,1) CONSTRAINT C2 PRIMARY KEY,
+	GoodsID int NOT NULL REFERENCES Goods(GoodsID) ON DELETE CASCADE,
+	CustomerID int NOT NULL FOREIGN KEY(CustomerID) REFERENCES Customers (CustomerID) ON DELETE NO ACTION,
+	Quantity int NOT NULL CONSTRAINT C3 CHECK(Quantity > 0),
+	OrderSum money NOT NULL,
+	OrderDtae datetime DEFAULT(getdate())
+);
+
+
+
+use SPJ;
+create table S(
+    sno char(3) primary key,
+    sname char(10),
+    status char(2),
+    city char(10)
+);
+
+create table P(
+    pno char(3) primary key,
+    pname char(10),
+    color char(4),
+    weight int
+);
+    
+create table J(
+    jno char(3) primary key,
+    jname char(10),
+    city char(10)
+);
+
+create table SPJ(
+    sno char(3) references s(sno),
+    pno char(3) references p(pno),
+    jno char(3) references j(jno),
+    qty int,
+	primary key(sno,pno,jno)
+);
+
+
+use TSGL;
+create table book(
+	bookId char(10)primary key,
+	bookName varchar(50),
+	bookWriter varchar(30),
+	bookPublish varchar(30),
+	bookPrice float
+)
+
+create table reader(
+	readerId char(10) primary key,
+	readerName varchar(8)not null,
+	readerSex char(2)not null,
+	readerOfficeTel char(8),
+	readerDepartment varchar(30)
+)
+
+
+create table 借阅表(
+	readerId char(10),
+	bookId char(10),
+	checkOutTime char(8),
+	checkInTime char(8),
+	primary key(readerId,bookId),
+	foreign key (readerId) references reader(readerId),
+	foreign key (bookId) references book(bookId),
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
