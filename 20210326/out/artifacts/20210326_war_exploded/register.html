@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+
+    <style>
+        form{
+            border: 3px solid pink;
+            height: 100px;
+            weight: 100px;
+        }
+
+        body {
+            text-align: center;
+        }
+    </style>
+
+
+</head>
+<body>
+<form method="post" action="/register">
+    <fieldset>
+        <legend>用户注册</legend>
+        <div>
+            <label>用户名</label>
+            <input type="text" name="username">
+        </div>
+
+        <div>
+            <label>密码</label>
+            <input type="password" name="password">
+        </div>
+
+        <div>
+            <button type="submit">注册</button>
+        </div>
+    </fieldset>
+
+</form>
+
+</body>
+</html>
