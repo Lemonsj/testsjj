@@ -3,21 +3,29 @@ package entity;
 import lombok.Data;
 
 /**
- * Created with IntelliJ IDEA
+ * Created with IntelliJ IDEA.
  * Description:
- * User: 孙洁
- * Date: 2020-05-16
- * Time: 22:24
- **/
+ * User: GAOBO
+ * Date: 2020-05-17
+ * Time: 9:31
+ */
 @Data
 public class OrderItem {
     private Integer id;
-    private String order_id;
-    private Integer goods_id;
-    private String goods_name;
-    private String goods_introduce;
-    private Integer goods_num;
-    private String goods_unit;
-    private Integer goods_price;
-    private Integer goods_discount;
+    private String orderId;
+    private Integer goodsId;
+    private String goodsName;
+    private String goodsIntroduce;
+    private Integer goodsNum;
+    private String goodsUnit;
+    private Integer goodsPrice;
+    private Integer goodsDiscount;
+
+    public double getGoodsPrice() {
+        return goodsPrice * 1.0 / 100;
+    }
+
+    public int getGoodsPriceInt() {
+        return goodsPrice;
+    }
 }

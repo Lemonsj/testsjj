@@ -3,14 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>用户注册</title>
+    <style>
+        form{
+            border: 3px solid pink;
+            height: 100px;
+            weight: 100px;
+        }
+
+        body {
+            text-align: center;
+        }
+    </style>
 
 </head>
 <body>
-<h2>用户注册</h2>
 <form action="register" method="post">
-    用户名：<input type="text" name="username" placeholder="请输入用户名">
-    密码：<input type="password" name="password" placeholder="请输入密码">
-    <input type="submit">
+    <fieldset>
+        <legend>用户</legend>
+        <div>
+            <label>用户名</label>
+            <input type="text" name="username">
+        </div>
+
+        <div>
+            <label>密码</label>
+            <input type="password" name="password">
+        </div>
+
+        <div>
+            <button type="submit">注册</button>
+        </div>
+    </fieldset>
 </form>
 </body>
 </html>

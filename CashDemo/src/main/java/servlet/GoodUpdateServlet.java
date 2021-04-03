@@ -1,7 +1,6 @@
 package servlet;
 
 import entity.Goods;
-import sun.security.pkcs11.Secmod;
 import util.DBUtil;
 
 import javax.servlet.ServletException;
@@ -17,29 +16,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created with IntelliJ IDEA
+ * Created with IntelliJ IDEA.
  * Description:
- * User: 孙洁
+ * User: GAOBO
  * Date: 2020-05-20
- * Time: 18:38
- **/
+ * Time: 18:37
+ */
 @WebServlet("/updategoods")
 public class GoodUpdateServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-
         resp.setContentType("text/html; charset=utf-8");
+
 
         String name = req.getParameter("name");
         String stock = req.getParameter("stock");
         String introduce = req.getParameter("introduce");
         String unit = req.getParameter("unit");
-        String price = req.getParameter("price");
+        String price = req.getParameter("price");//89.9
 
-        double doublePrice = Double.valueOf(price);
+        double doublePrice = Double.valueOf(price);//89.9  8990.0
 
-        int realPrice = new Double(100*doublePrice).intValue();
+        int realPrice = new Double(100 * doublePrice).intValue();//8990
 
         String discount = req.getParameter("discount");
 
@@ -48,45 +48,43 @@ public class GoodUpdateServlet extends HttpServlet {
 
         Writer writer = resp.getWriter();
 
-        //1、看是否存在goodsId商品，如果有拿到该商品
+        //1、看是否存在 goodsId 这样的商品，如果有拿到这个商品。
         Goods goods = getGoods(goodsId);
-
         if(goods == null) {
-            writer.write("<h2>没有该商品" +goodsId+"</h2>");
+            writer.write("<h2> 没有该商品"+goodsId+"</h2>");
             System.out.println("没有该商品");
         }else {
-            //更新商品
-            goods.setId(goodsId);//自己才加的******************
+            //goods  存储的就是需要更新的商品
             goods.setName(name);
             goods.setIntroduce(introduce);
             goods.setStock(Integer.valueOf(stock));
             goods.setUnit(unit);
-            goods.setPrice(Integer.valueOf(price));
+            goods.setPrice(realPrice);
             goods.setDiscount(Integer.valueOf(discount));
+
+            //将新的数据 写回到数据库当中
+            boolean flg = modify(goods);
+            if(flg) {
+                writer.write("<h2> 商品更新成功"+goodsId+"</h2>");
+                resp.sendRedirect("goodsbrowse.html");
+            }else {
+                writer.write("<h2> 商品更新失败"+goodsId+"</h2>");
+            }
         }
-        boolean flg = modify(goods);
-
-        if(!flg) {
-            writer.write("<h2>商品更新失败"+goodsId+"</h2>");
-            resp.sendRedirect("goodsbrowse.html");
-        }else{
-
-            writer.write("<h2>商品更新成功"+goodsId+"</h2>");
-
-        }
-
 
     }
 
+
+    //修改数据库中的数据
     public boolean modify(Goods goods) {
         Connection connection = null;
         PreparedStatement ps = null;
 
-
-        try{
-            String sql = "update goods set name=?,introduce=?,stock=?,unit=?,price=?,discount=? where id =?";
+        try {
+            String sql = "update goods set name=?,introduce=?,stock=?,unit=?,price=?,discount=? where id=?";
             connection = DBUtil.getConnection(true);
             ps = connection.prepareStatement(sql);
+
             ps.setString(1,goods.getName());
             ps.setString(2,goods.getIntroduce());
             ps.setInt(3,goods.getStock());
@@ -96,38 +94,37 @@ public class GoodUpdateServlet extends HttpServlet {
             ps.setInt(7,goods.getId());
 
             int ret = ps.executeUpdate();
-
             if(ret == 0) {
                 return false;
-            }else{
+            }else {
                 return true;
             }
-
-        }catch(SQLException e){
+        }catch (SQLException e) {
             e.printStackTrace();
-        }finally{
+        }finally {
             DBUtil.close(connection,ps,null);
         }
         return false;
     }
 
-    //功能：找到商品
+    //功能：找到goodsId的商品
     public Goods getGoods(int goodsId) {
+
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         Goods goods = null;
 
-        try{
-            String sql = "select * from goods where id =?";
+        try {
+            String sql = "select * from goods where id = ?";
             connection = DBUtil.getConnection(true);
             ps = connection.prepareStatement(sql);
             ps.setInt(1,goodsId);
 
             rs = ps.executeQuery();
 
-            if(rs.next()){
+            if(rs.next()) {
                 goods = new Goods();
                 goods.setId(rs.getInt("id"));
                 goods.setName(rs.getString("name"));
@@ -137,12 +134,13 @@ public class GoodUpdateServlet extends HttpServlet {
                 goods.setPrice(rs.getInt("price"));
                 goods.setDiscount(rs.getInt("discount"));
             }
-
-        }catch(SQLException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-            DBUtil.close(connection,ps,null);
+        }finally {
+            DBUtil.close(connection,ps,rs);
         }
         return goods;
     }
+
+
 }

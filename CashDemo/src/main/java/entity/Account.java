@@ -3,12 +3,12 @@ package entity;
 import lombok.Data;
 
 /**
- * Created with IntelliJ IDEA
+ * Created with IntelliJ IDEA.
  * Description:
- * User: 孙洁
- * Date: 2020-05-16
- * Time: 22:08
- **/
+ * User: GAOBO
+ * Date: 2020-05-12
+ * Time: 21:30
+ */
 @Data
 public class Account {
     private Integer id;

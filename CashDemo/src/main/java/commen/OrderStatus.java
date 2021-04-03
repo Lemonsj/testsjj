@@ -1,5 +1,7 @@
 package commen;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 /**
  * Created with IntelliJ IDEA
  * Description:
@@ -7,6 +9,8 @@ package commen;
  * Date: 2020-05-17
  * Time: 9:31
  **/
+@Getter
+@ToString
 public enum OrderStatus {
     PLAYING(1,"待支付"),OK(2,"支付完成");
 
